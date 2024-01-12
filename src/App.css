@@ -7,6 +7,7 @@
 :root {
   --moderateBlue: hsl(238, 40%, 52%);
   --softRed: hsl(358, 79%, 66%);
+  --thickRed: hsl(358, 96%, 62%);
   --lightGrayishBlue: hsl(239, 57%, 85%);
   --paleRed: hsl(357, 100%, 86%);
   --darkBlue: hsl(
@@ -22,7 +23,7 @@
 }
 
 body {
-  font-size: 16px;
+  font-size: 14px;
   background-color: var(--lightGray);
   display: flex;
   justify-content: center;
@@ -51,6 +52,7 @@ body {
 
 .reply {
   width: 470px;
+  gap: 20px;
   /* border: 5px solid black; */
 }
 
@@ -69,6 +71,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .comment__top, .reply__top {
@@ -91,6 +94,7 @@ body {
   color: var(--grayishBlue);
   font-weight: var(--fw-light)
 }
+
 
 .comment__content {
   word-break: break-all;
@@ -133,10 +137,15 @@ body {
 .comm__box__textarea {
   resize: none;
   padding: 10px 20px;
-  outline: 1px solid var(--lightGray);
+  outline: 2px solid var(--lightGray);
   border: 1px solid var(--lightGray);
   border-radius: 3px;
   color: var(--darkBlue);
+  cursor: pointer;
+
+  &:focus {
+    outline: 2px solid var(--darkBlue)
+  }
 }
 
 .comment__input__container {
@@ -187,9 +196,88 @@ body {
   font-weight: var(--fw-thick);
 }
 
-.comment__delete {
+.comment__delete__on, .comment__edit__on, .comment__delete__off, .comment__edit__off {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.comment__delete__on, .comment__delete__off {
   color: var(--softRed);
 }
-.comment__edit {
+.comment__edit__on, .comment__edit__off {
   color: var(--moderateBlue);
+}
+
+.comment__edit__off, .comment__delete__off {
+  opacity: 0.5;
+}
+
+.edit__div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit__div .comm__box__button {
+  align-self: flex-end;
+}
+
+.edit__div .comm__box__textarea {
+  font-weight: var(--fw-thick);
+}
+
+.delete__modal {
+  margin: auto;
+  outline: none;
+  background-color: var(--white);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  padding: 2em 1.5em;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.delete__modal h1 {
+  color: var(--darkBlue);
+}
+
+.delete__modal p {
+  color: var(--grayishBlue);
+  font-size: 16px;
+}
+
+.delete__modal__buttons__div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.delete__modal .cancel, .delete__modal .delete {
+  text-transform: uppercase;
+  color: var(--white);
+  border: none;
+  outline: none;
+  font-weight: var(--fw-thick);
+  padding: 1em 1.5em;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: var(--grayishBlue);
+
+  &:hover {
+    background-color: var(--darkBlue);
+  }
+}
+
+.delete {
+  background-color: var(--softRed);
+
+  &:hover {
+    background-color: var(--thickRed);
+  }
 }

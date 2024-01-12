@@ -2,7 +2,7 @@
 import './App.css'
 // import { useState } from "react"
 
-export default function CommInputBox({ curr, handleClick, textValue,handleChange, comm_function }) {
+export default function CommInputBox({ curr, handleClick, textValue, handleChange, comm_function }) {
 
     
 

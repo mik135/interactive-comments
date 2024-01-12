@@ -9,9 +9,12 @@ import { v4 as uuidv4} from 'uuid'
 
 
 // eslint-disable-next-line react/prop-types
-export default function Comment({ img, name, date, text, id, score, replies, currentUser, textValue, changeHandler }) {
+export default function Comment({ img, name, date, text, id, score, replies, currentUser }) {
   const [replying, setReplying] = useState(false);
   const [userReplies, setUserReplies] = useState(replies);
+  const [replyTextValue, setReplyTextValue] = useState("");
+ 
+
   function handleReply() {
     setReplying(bool => !bool);
   }
@@ -19,8 +22,8 @@ export default function Comment({ img, name, date, text, id, score, replies, cur
     setUserReplies(prevState => {
       return [...prevState, {
       id: uuidv4(),
-      "content": textValue,
-      "createdAt": "1 month ago",
+      "content": replyTextValue,
+      "createdAt": "10 seconds ago",
       "score": 0,
       "user": {
         "image": { 
@@ -33,6 +36,18 @@ export default function Comment({ img, name, date, text, id, score, replies, cur
     }]})
     setReplying(bool => !bool);
   }
+
+  function handleEditClick() {}
+
+  function replyHandler(e) {
+    setReplyTextValue(e.target.value);
+  }
+
+  function handleDelete(id) {
+    setUserReplies(prevState => prevState.filter(i => i.id !== id));
+  }
+
+  
   return (
     <>
     <div className="comment" id={id}>
@@ -52,11 +67,11 @@ export default function Comment({ img, name, date, text, id, score, replies, cur
         </div>
     </div>
 
-    {replying && <CommInputBox curr={currentUser} handleClick={handleSendClick} textValue={textValue} handleChange={changeHandler} comm_function="reply"/>}
+    {replying && <CommInputBox curr={currentUser} handleClick={handleSendClick} textValue={replyTextValue} handleChange={replyHandler} comm_function="reply" />}
 
     <div className="replyDiv">
         {userReplies.map(reply => {
-           return <Reply key={reply.id} id={reply.id} score={reply.score} img={reply.user.image.webp} name={reply.user.username} date={reply.createdAt} text={reply.content} parentName={name} currentUser = {currentUser.username}/>
+           return <Reply key={reply.id} id={reply.id} score={reply.score} img={reply.user.image.webp} name={reply.user.username} date={reply.createdAt} text={reply.content} parentName={name} currentUser = {currentUser.username} handleEditClick={handleEditClick} handleDelete={handleDelete}/>
         })}
     </div>
     </>
